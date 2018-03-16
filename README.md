@@ -8,11 +8,13 @@ This may take a few weeks.
 
 ## Prototype API
 
-  from queruntine import Runner
+```
+from queruntine import Runner
 
-  runner = Runner()
+runner = Runner()
 
-  runner.connection_string = 'foo'
-  runner.queries = ['fee', 'fi', 'foe', 'fum']
+runner.connection_string = 'foo'
+runner.queries = ['fee', 'fi', 'foe', 'fum']
 
-  runner.run()
+runner.run()
+```
