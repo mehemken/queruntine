@@ -1,3 +1,6 @@
+# Jupyter
+*.ipynb
+
 # Vim stuff
 *.swp
 
