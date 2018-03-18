@@ -2,9 +2,20 @@ import random
 
 import pytest
 
-from queruntine import Client
-from queruntine import Postprocessor
-from queruntine import Printer
+@pytest.fixture
+def client():
+    from queruntine import Client
+    return Client
+
+@pytest.fixture
+def postproc():
+    from queruntine import Postprocessor
+    return Postprocessor
+
+@pytest.fixture
+def printer():
+    from queruntine import Printer
+    return Printer
 
 @pytest.fixture
 def preproc():
@@ -12,22 +23,22 @@ def preproc():
     return Preprocessor
 
 ########################################
-# Args
+# Functional
 ########################################
 
 def test_Preprocessor_takes_two_args(preproc):
     a, b = '', []
     foo = preproc(a, b)
 
-def test_Client_accepts_dict_arg():
+def test_Client_accepts_dict_arg(client):
     a = {}
-    foo = Client(a)
+    foo = client(a)
 
-def test_Postprocessor_takes_one_arg():
-    foo = Postprocessor('')
+def test_Postprocessor_takes_one_arg(postproc):
+    foo = postproc('')
 
-def test_Printer_takes_one_arg():
-    foo = Printer('')
+def test_Printer_takes_one_arg(printer):
+    foo = printer('')
 
 ########################################
 # Preprocessor
