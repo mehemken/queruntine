@@ -1,21 +1,13 @@
-import random
+#!/usr/bin/env python
 
 import pytest
+import random
+import json
 
-@pytest.fixture
-def client():
-    from queruntine import Client
-    return Client
 
-@pytest.fixture
-def postproc():
-    from queruntine import Postprocessor
-    return Postprocessor
-
-@pytest.fixture
-def printer():
-    from queruntine import Printer
-    return Printer
+########################################
+# Fixtures
+########################################
 
 @pytest.fixture
 def preproc():
@@ -29,16 +21,6 @@ def preproc():
 def test_Preprocessor_takes_two_args(preproc):
     a, b = '', []
     foo = preproc(a, b)
-
-def test_Client_accepts_dict_arg(client):
-    a = {}
-    foo = client(a)
-
-def test_Postprocessor_takes_one_arg(postproc):
-    foo = postproc('')
-
-def test_Printer_takes_one_arg(printer):
-    foo = printer('')
 
 ########################################
 # Preprocessor
@@ -73,11 +55,23 @@ def test_random_conn_str_in_jsonify_payload(preproc):
     payload = preproc._jsonify()
     assert conn_str in payload
 
+def test_jsonify_returns_valid_json(preproc):
+    a, b = 'a', []
+    preproc = preproc(a, b)
+    payload = preproc._jsonify()
+    loaded = json.loads(payload)
+    assert type(loaded) == dict
+
+def test_single_query_input_in_jsonify_output(preproc):
+    query = ['db.foo.find({})']
+    preproc = preproc('a', query)
+    payload = preproc._jsonify()
+    assert query[0] in payload
+
 ########################################
 # Next, test that
-# * The output of _jsonify is valid json
-# * conn_str as bytes is in the output
-#   of _to_bytes
-# * the queries are in payload of jsonify
 # * the queries as bytes are in the
 #   output of _to_bytes
+# * Veify that the bytes output contains
+#   the same information as the str output
+#   of jsonify
