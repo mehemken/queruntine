@@ -15,16 +15,12 @@ def preproc():
     return Preprocessor
 
 ########################################
-# Functional
+# Tests
 ########################################
 
 def test_Preprocessor_takes_two_args(preproc):
     a, b = '', []
     foo = preproc(a, b)
-
-########################################
-# Preprocessor
-########################################
 
 def test_get_payload_returns_bytes(preproc):
     preproc = preproc('', [])
@@ -68,10 +64,16 @@ def test_single_query_input_in_jsonify_output(preproc):
     payload = preproc._jsonify()
     assert query[0] in payload
 
-########################################
-# Next, test that
-# * the queries as bytes are in the
-#   output of _to_bytes
-# * Veify that the bytes output contains
-#   the same information as the str output
-#   of jsonify
+def test_to_bytes_is_same_as_jsoinfy_output(preproc):
+    a, b = 'feefifoefum', ['foo', 'bar', 'baz']
+    preproc = preproc(a, b)
+    payload_str = preproc._jsonify()
+    payload_bytes = preproc._to_bytes()
+    assert json.loads(payload_str) == json.loads(payload_bytes)
+
+def test_get_payload_equals_output_of_to_bytes(preproc):
+    a, b = 'feefifoefum', ['foo', 'bar', 'baz']
+    preproc = preproc(a, b)
+    payload = preproc.get_payload()
+    p_bytes = preproc._to_bytes()
+    assert payload == p_bytes

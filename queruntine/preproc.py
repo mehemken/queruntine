@@ -8,7 +8,7 @@ class Preprocessor:
         self.queries = queries
 
     def get_payload(self):
-        return b''
+        return self._to_bytes()
 
     def _jsonify(self):
         values = {
@@ -18,4 +18,4 @@ class Preprocessor:
         return json.dumps(values)
 
     def _to_bytes(self):
-        return b''
+        return bytes(self._jsonify(), 'utf-8')
