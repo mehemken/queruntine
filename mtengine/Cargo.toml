@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["Marco Hemken <mehemken@gmail.com>"]
 
 [dependencies]
+
+[lib]
+name = "mtengine"
+crate-type = ["dylib"]
