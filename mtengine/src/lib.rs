@@ -2,7 +2,7 @@ use std::ffi::CStr;
 use std::os::raw::c_char;
 
 #[no_mangle]
-pub extern fn exec_queries() -> String {
+pub extern fn exec_queries(msg: *const c_char) -> String {
     // The main function
     // This is where it starts
     // and also where it ends
@@ -13,9 +13,4 @@ pub extern fn exec_queries() -> String {
 }
 
 #[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+pub mod tests;

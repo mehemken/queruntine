@@ -1,11 +1,7 @@
-#!/usr/bin/env python
-
-import pytest
-
-
 ########################################
-# Tests
+# Basic func tests
 ########################################
+
 
 def test_official_example(Runner):
     runner = Runner()
@@ -17,6 +13,7 @@ def test_official_example(Runner):
     runner.queries = queries
 
     runner.run()
+
 
 def test_runner_passes_payload_from_preproc_to_client(Runner, Client, Preprocessor):
     a, b = 'connection_string', ['query1', 'query2']
@@ -30,6 +27,7 @@ def test_runner_passes_payload_from_preproc_to_client(Runner, Client, Preprocess
 
     assert payload_r == payload_c
 
+
 def test_runner_payload_is_output_of_preproc(Runner, Preprocessor):
     a, b = 'connection_string', ['query1', 'query2']
 
@@ -40,7 +38,3 @@ def test_runner_payload_is_output_of_preproc(Runner, Preprocessor):
     payload_p = preproc.get_payload()
 
     assert payload_r == payload_p
-
-def test_mtengine_returns(MTEngine):
-    response = MTEngine.exec_queries()
-    assert response
