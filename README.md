@@ -13,8 +13,11 @@ from queruntine import Runner
 
 runner = Runner()
 
-runner.connection_string = 'foo'
-runner.queries = ['fee', 'fi', 'foe', 'fum']
+conn_str = 'mongodb://localhost:27017'
+queries = ['rust_basics.guesses.find({})']
+
+runner.connection_string = conn_str
+runner.queries = queries
 
 runner.run()
 ```
