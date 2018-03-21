@@ -3,6 +3,13 @@ import json
 
 
 class Preprocessor:
+    """
+    The class accepts two arguments and stores them.
+    The _jsonify() method turns them into valid json.
+    The _to_bytes() method turns them into bytes.
+    The user API method, get_payload(), essentially takes
+    two strings and returns them as JSON as a byte string.
+    """
     def __init__(self, conn_str, queries):
         self.conn_str = conn_str
         self.queries = queries

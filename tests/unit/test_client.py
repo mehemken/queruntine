@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import pytest
 import os
 import ctypes
 
@@ -29,8 +28,19 @@ def test_Client_gets_response_from_mtengine(Client, Runner):
     assert type(response) == bytes
 
 
+def test_Client_decodes_message_to_string(Client, Preprocessor, Runner):
+    runner = Runner()
+    mtengine = runner._mtengine_path
+
+    a, b = 'conn_str', ['queries']
+    preproc = Preprocessor(a, b)
+    payload = preproc.get_payload()
+
+    client = Client(payload)
+    response = client.get_response(mtengine)
+    assert payload == response
+
+
 # What to test next
-# * Does not accept empty dict
-# * Does not return empty dict
 # * Sends to Rust
 # * Receives from Rust

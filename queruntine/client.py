@@ -1,3 +1,6 @@
+import os
+import ctypes
+
 class Client:
     def __init__(self, payload):
         self._payload = payload
@@ -6,4 +9,5 @@ class Client:
         """
         Takes the output of Preprocessor and sends it to Rust
         """
-        return b''
+        mtengine = ctypes.cdll.LoadLibrary(mtengine_path)
+        return mtengine.exec_queries(self._payload)
