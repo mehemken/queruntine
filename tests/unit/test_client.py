@@ -25,7 +25,7 @@ def test_Client_gets_response_from_mtengine(Client, Runner):
 
     mtengine = runner._mtengine_path
     response = client.get_response(mtengine)
-    assert type(response) == bytes
+    assert response
 
 
 def test_Client_decodes_message_to_string(Client, Preprocessor, Runner):
