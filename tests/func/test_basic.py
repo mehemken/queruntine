@@ -4,13 +4,10 @@
 
 
 def test_official_example(Runner):
-    runner = Runner()
-
     conn_str = 'mongodb://localhost:27017'
     queries = ['rust_basics.guesses.find({})']
 
-    runner.connection_string = conn_str
-    runner.queries = queries
+    runner = Runner(conn_str, queries)
 
     runner.run()
 
