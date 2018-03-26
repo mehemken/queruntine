@@ -2,6 +2,7 @@
 
 import os
 import ctypes
+import pytest
 
 
 ########################################
@@ -12,15 +13,18 @@ def test_Client_accepts_dict_arg(Client):
     a = {}
     client = Client(a)
 
+
 def test_Runner_exposes_dylib_location(Runner, ROOT_DIR):
     runner = Runner('', [])
     mtengine_file = os.path.join(ROOT_DIR, 'libmtengine.so')
     assert runner._mtengine_path == mtengine_file
 
+
+@pytest.mark.ffi
 def test_Client_gets_response_from_mtengine(Client, Runner):
     runner = Runner()
 
-    a = {}
+    a = b"{'foo':'bar'}"
     client = Client(a)
 
     mtengine = runner._mtengine_path
@@ -28,6 +32,7 @@ def test_Client_gets_response_from_mtengine(Client, Runner):
     assert response
 
 
+@pytest.mark.ffi
 def test_Client_decodes_message_to_string(Client, Preprocessor, Runner):
     runner = Runner()
     mtengine = runner._mtengine_path
