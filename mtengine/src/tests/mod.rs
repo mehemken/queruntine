@@ -9,18 +9,14 @@ use std::ffi::CString;
 
 
 #[test]
-fn messenger_accepts_const_c_char() {
-    /* Although, the compiler checks for this now.
-    Is this necessary? */
-    let ptr = CString::new("Hello").unwrap().as_ptr();
-
-    let _result = exec_queries(ptr);
+fn i_can_has_string() {
+    exec_queries()
+    assert_eq!(answer, 4)
 }
 
 
 #[test]
-fn messenger_returns_c_char() {
-    let ptr = CString::new("Hello").unwrap().as_ptr();
-    let result = exec_queries(ptr);
-    assert_eq!(ptr, result)
+fn it_works() {
+    let answer = 2 + 2;
+    assert_eq!(answer, 4)
 }
