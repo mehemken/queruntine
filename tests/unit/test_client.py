@@ -9,41 +9,29 @@ import pytest
 # Tests
 ########################################
 
-def test_Client_accepts_dict_arg(Client):
-    a = {}
-    client = Client(a)
 
-
-def test_Runner_exposes_dylib_location(Runner, ROOT_DIR):
-    runner = Runner('', [])
+def test_client_knows_dylib_location(Client, ROOT_DIR):
+    client = Client()
     mtengine_file = os.path.join(ROOT_DIR, 'libmtengine.so')
-    assert runner._mtengine_path == mtengine_file
+    assert client._mtengine_path == mtengine_file
 
 
 @pytest.mark.ffi
-def test_Client_gets_response_from_mtengine(Client, Runner):
-    runner = Runner()
+def test_Client_gets_response_from_mtengine(Client):
+    client = Client()
+    payload = b"{'foo':'bar'}"
 
-    a = b"{'foo':'bar'}"
-    client = Client(a)
-
-    mtengine = runner._mtengine_path
-    response = client.get_response(mtengine)
+    response = client.get_response(payload)
     assert response
 
 
 @pytest.mark.ffi
-def test_Client_decodes_message_to_string(Client, Preprocessor, Runner):
-    runner = Runner()
-    mtengine = runner._mtengine_path
+def test_client_decodes_message_to_string(Client, Preprocessor):
+    client = Client()
+    payload = b"{'foo':'bar'}"
 
-    a, b = 'conn_str', ['queries']
-    preproc = Preprocessor(a, b)
-    payload = preproc.get_payload()
-
-    client = Client(payload)
-    response = client.get_response(mtengine)
-    assert payload == response
+    response = client.get_response(payload)
+    assert response
 
 
 # What to test next

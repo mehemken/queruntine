@@ -39,3 +39,9 @@ def MTEngine(ROOT_DIR):
     import ctypes
     mtengine = os.path.join(ROOT_DIR, 'libmtengine.so')
     return ctypes.cdll.LoadLibrary(mtengine)
+
+@pytest.fixture
+def test_params_tuple_mongo():
+    conn_str = 'mongodb://localhost:27017'
+    queries = ['rust_basics.guesses.find({})']
+    return conn_str, queries
